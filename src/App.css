@@ -12,6 +12,6 @@
     @apply bg-whiteColor text-blackColor
   }
   input {
-    @apply outline-none
+    @apply outline-none bg-transparent
   }
 }

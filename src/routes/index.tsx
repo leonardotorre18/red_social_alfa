@@ -4,6 +4,7 @@ import {
 } from "react-router-dom";
 import HomeView from "../view/Home/HomeView";
 import MainLayout from "../view/layout/MainLayout";
+import LoginView from "../view/Login/LoginView";
 
 const router = createBrowserRouter([
   {
@@ -13,6 +14,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <HomeView />
+      },
+      {
+        path: '/login',
+        element: <LoginView />
       }
     ]
   },
