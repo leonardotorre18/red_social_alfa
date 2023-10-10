@@ -1,5 +1,12 @@
 import React from 'react'
+import * as Yup from 'yup'
 import { Formik } from 'formik';
+
+const validationSchema = Yup.object().shape({
+  email: Yup.string().min(1, 'Debes ingresar un email').email('El email no es válido').required('El email es requerido'),
+  password: Yup.string().required('Debes ingresar una contraseña'),
+  confirmPassword: Yup.string().oneOf([Yup.ref('password')], 'Las contraseñas no coinciden')
+})
 
 export default function RegisterView() {
 
@@ -16,13 +23,14 @@ export default function RegisterView() {
           password: '',
           confirmPassword: ''
         }}
+        validationSchema={validationSchema}
         onSubmit={(values, {resetForm}) => {
           console.log(values)
 
           resetForm()
         }}  
       >
-        { ({ values, handleChange, handleSubmit, handleBlur }) => 
+        { ({ values, errors, handleChange, handleSubmit, handleBlur }) => 
         
         <form
           onSubmit={handleSubmit}
@@ -37,6 +45,7 @@ export default function RegisterView() {
             onBlur={handleBlur}
             value={values.email}
           />
+          { errors.email && <p className='bg-red-700 text-whiteColor rounded-md py-1 px-4'>{ errors.email }</p> }
           <input 
             type="password" 
             placeholder='Contraseña' 
@@ -46,6 +55,7 @@ export default function RegisterView() {
             onBlur={handleBlur}
             value={values.password}
           />
+          { errors.password && <p className='bg-red-700 text-whiteColor rounded-md py-1 px-4'>{ errors.password }</p> }
           <input 
             type="password" 
             placeholder='Confirme su Contraseña' 
@@ -55,6 +65,7 @@ export default function RegisterView() {
             onBlur={handleBlur}
             value={values.confirmPassword}
           />
+          { errors.confirmPassword && <p className='bg-red-700 text-whiteColor rounded-md py-1 px-4'>{ errors.confirmPassword }</p> }
           
           <button 
             type="submit"

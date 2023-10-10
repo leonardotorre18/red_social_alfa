@@ -1,6 +1,12 @@
-import { Formik } from 'formik';
 import React from 'react'
+import * as Yup from 'yup'
+import { Formik } from 'formik';
 import { loginUser } from '../../services/user';
+
+const validationSchema = Yup.object().shape({
+  email: Yup.string().email('El email no es válido').required('Debes ingresar un email'),
+  password: Yup.string().min(3, 'Contraseña demasiado corta').required('La contraseña es requerida')
+})
 
 export default function LoginView() {
 
@@ -16,15 +22,17 @@ export default function LoginView() {
           email: '',
           password: ''
         }}
-        onSubmit={ async (values, { resetForm }) => {
+        validationSchema={validationSchema}
+        onSubmit={ (values, { resetForm }) => {
           
-          const response = await loginUser(values)
-          console.log(response)
+          loginUser(values)
+            .then( res => console.log(res))
+            .catch(error => console.log(error))
           
           resetForm()
         }}
       >
-        {({ values, handleSubmit, handleChange, handleBlur}) => 
+        {({ values, errors, handleSubmit, handleChange, handleBlur}) => 
 
           <form
             onSubmit={handleSubmit}
@@ -39,6 +47,7 @@ export default function LoginView() {
               onChange={handleChange}
               onBlur={handleBlur}
             />
+            { errors.email && <p className='bg-red-700 text-whiteColor rounded-md py-1 px-4'>{ errors.email }</p> }
             <input 
               type="password" 
               placeholder='Contraseña' 
@@ -48,6 +57,7 @@ export default function LoginView() {
               onChange={handleChange}
               onBlur={handleBlur}
             />
+            { errors.password && <p className='bg-red-700 text-whiteColor rounded-md py-1 px-4'>{ errors.password }</p> }
             <button 
               type="submit"
               className='flex items-center gap-2 bg-firstBlue text-whiteColor py-2 px-5 rounded-md font-bold'
