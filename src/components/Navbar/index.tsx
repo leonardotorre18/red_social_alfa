@@ -1,10 +1,15 @@
-import React, { FormEvent } from 'react'
+import React from 'react'
 import { BsSearch } from 'react-icons/bs'
 import { BiSolidUserCircle } from 'react-icons/bi'
+import { Link } from 'react-router-dom'
 
 export default function Navbar() {
 
-  const handlerSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const [showMenu, setShowMenu] = React.useState<boolean>(false)
+
+  const toggleShowMenu = () => setShowMenu(!showMenu)
+
+  const handlerSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
   }
 
@@ -16,8 +21,7 @@ export default function Navbar() {
 
         <span className='text-2xl'>Alfabook</span>
         
-        <form 
-          action="" 
+        <form
           className='bg-whiteColor flex items-center py-1 px-3 rounded-md'
           onSubmit={handlerSubmit}
         >
@@ -27,8 +31,45 @@ export default function Navbar() {
           </button>
         </form>
 
-        <BiSolidUserCircle className='text-4xl min-w-fit' />
-        
+        <div className='relative'>
+          <BiSolidUserCircle className='text-4xl min-w-fit' onClick={toggleShowMenu} />
+
+          <div 
+            className={
+              `bg-blackColor text-whiteColor flex flex-col py-2 gap-2 rounded-md absolute right-0 ${
+                showMenu ? '' : 'pointer-events-none hidden'
+              }`
+            }
+            onClick={toggleShowMenu}
+          >
+            <Link 
+              to={'/profile'}
+              className='px-4'
+            >
+              Profile
+            </Link>
+            <Link 
+              to={'/'}
+              className='px-4'
+            >
+              Dashboard
+            </Link>
+            <hr />
+            <Link 
+              to={'/login'}
+              className='px-4'
+            >
+              Login
+            </Link>
+            <Link 
+              to={'/logout'}
+              className='px-4'
+            >
+              Logout
+            </Link>
+          </div>
+
+        </div>
       </nav>
     </header>
   )
