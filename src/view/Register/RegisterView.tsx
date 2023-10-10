@@ -1,6 +1,7 @@
 import React from 'react'
 import * as Yup from 'yup'
 import { Formik } from 'formik';
+import { registerUser } from '../../services/user';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().min(1, 'Debes ingresar un email').email('El email no es válido').required('El email es requerido'),
@@ -25,7 +26,10 @@ export default function RegisterView() {
         }}
         validationSchema={validationSchema}
         onSubmit={(values, {resetForm}) => {
-          console.log(values)
+          
+          registerUser(values)
+            .then(data => console.log(data))
+            .catch(error => console.log(error))
 
           resetForm()
         }}  
