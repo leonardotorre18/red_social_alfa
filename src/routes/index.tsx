@@ -5,6 +5,7 @@ import {
 import HomeView from "../view/Home/HomeView";
 import MainLayout from "../view/layout/MainLayout";
 import LoginView from "../view/Login/LoginView";
+import RegisterView from "../view/Register/RegisterView";
 
 const router = createBrowserRouter([
   {
@@ -18,6 +19,10 @@ const router = createBrowserRouter([
       {
         path: '/login',
         element: <LoginView />
+      },
+      {
+        path: '/register',
+        element: <RegisterView />
       }
     ]
   },

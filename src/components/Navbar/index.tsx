@@ -44,28 +44,34 @@ export default function Navbar() {
           >
             <Link 
               to={'/profile'}
-              className='px-4'
+              className='px-4 min-w-max'
             >
-              Profile
+              Perfil
             </Link>
             <Link 
               to={'/'}
-              className='px-4'
+              className='px-4 min-w-max'
             >
               Dashboard
             </Link>
             <hr />
             <Link 
               to={'/login'}
-              className='px-4'
+              className='px-4 min-w-max'
             >
-              Login
+              Iniciar Sesión
+            </Link>
+            <Link 
+              to={'/register'}
+              className='px-4 min-w-max'
+            >
+              Registrarse
             </Link>
             <Link 
               to={'/logout'}
-              className='px-4'
+              className='px-4 min-w-max'
             >
-              Logout
+              Cerrar Sesión
             </Link>
           </div>
 
