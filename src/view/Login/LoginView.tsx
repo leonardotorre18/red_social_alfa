@@ -1,5 +1,6 @@
 import { Formik } from 'formik';
 import React from 'react'
+import { loginUser } from '../../services/user';
 
 export default function LoginView() {
 
@@ -15,8 +16,11 @@ export default function LoginView() {
           email: '',
           password: ''
         }}
-        onSubmit={(values, { resetForm }) => {
-          console.log('Enviado', values)
+        onSubmit={ async (values, { resetForm }) => {
+          
+          const response = await loginUser(values)
+          console.log(response)
+          
           resetForm()
         }}
       >
@@ -46,7 +50,7 @@ export default function LoginView() {
             />
             <button 
               type="submit"
-              className='flex items-center gap-2 bg-firstBlue text-whiteColor py-1 px-4 rounded-md font-bold'  
+              className='flex items-center gap-2 bg-firstBlue text-whiteColor py-2 px-5 rounded-md font-bold'
             >
               Iniciar Sesión
             </button>

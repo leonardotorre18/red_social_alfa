@@ -1,7 +1,7 @@
 import Axios from "axios";
 
 export const axios = Axios.create({
-  baseURL: "https://localhost:3001",
+  baseURL: "http://localhost:3001/social",
   // auth: {
   //   username: "my_username",
   //   password: "my_password",
