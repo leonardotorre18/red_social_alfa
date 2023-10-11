@@ -1,12 +1,25 @@
 import React from 'react'
 import Post from '../../components/Post'
-import { context } from '../../context/Context'
+// import { context } from '../../context/Context'
+// import { TPost } from '../../context/types/posts'
+// import { getPost } from '../../services/post'
+// import { setPosts } from '../../context/actions/posts'
 
 export default function HomeView() {
 
-  const state = React.useContext(context)
+  // const { state, dispatch } = React.useContext(context)
 
-  console.log(state)
+
+  // React.useEffect(() => {
+  //   getPost('').then((data: TPost[]) => {
+  //     dispatch(
+  //       setPosts(data)
+  //     )
+  //   })
+  // })
+
+
+  // console.log(state)
 
   return (
     <div className='max-w-5xl mx-auto flex flex-col my-10 gap-4'>

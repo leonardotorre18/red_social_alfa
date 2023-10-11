@@ -1,1 +1,5 @@
-export type ACTIONS = { payload: string, type: string }
+import { ACTIONS_POST } from "./posts";
+
+export type ACTIONS = 
+  ACTIONS_POST
+  

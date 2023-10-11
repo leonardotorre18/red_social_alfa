@@ -1,7 +1,10 @@
 import { axios } from "./config"
 
 export const getPost = (token: string) => {
-  console.log(token)
-  return axios.get('/post')
+  return axios.get('/post', {
+    headers: {
+      Authorization: token
+    }
+  }).then(data => data.data)
 }
 
