@@ -11,7 +11,7 @@ const validationSchema = Yup.object().shape({
 })
 
 export default function LoginView() {
-  const { dispatch, state } = React.useContext(context)
+  const { dispatch } = React.useContext(context)
 
   return (
     <div
@@ -35,8 +35,6 @@ export default function LoginView() {
                 name: res.user.name,
                 email: res.user.email
               }))
-              console.log(state)
-
             })
             .catch(error => console.log(error))
 

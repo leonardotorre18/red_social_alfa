@@ -1,35 +1,42 @@
 import React from 'react'
 import Post from '../../components/Post'
-// import { context } from '../../context/Context'
-// import { TPost } from '../../context/types/posts'
-// import { getPost } from '../../services/post'
-// import { setPosts } from '../../context/actions/posts'
+import { context } from '../../context/Context'
+import { TPost } from '../../context/types/posts'
+import { getPost } from '../../services/post'
+import { setPosts } from '../../context/actions/posts'
 
 export default function HomeView() {
 
-  // const { state, dispatch } = React.useContext(context)
+  const { state, dispatch } = React.useContext(context)
 
 
-  // React.useEffect(() => {
-  //   getPost('').then((data: TPost[]) => {
-  //     dispatch(
-  //       setPosts(data)
-  //     )
-  //   })
-  // })
+  React.useEffect(() => {
+    if(state.auth?.token) {
+      getPost(state.auth.token).then((data: TPost[]) => {
+        dispatch(
+          setPosts(data)
+        )
+      })
+    }
+  }, [dispatch, state.auth?.token])
 
-
-  // console.log(state)
-
+  console.log(state)
   return (
     <div className='max-w-5xl mx-auto flex flex-col my-10 gap-4'>
+      
+      {
+        state.posts.map( post => (
+          <Post 
+            key={post._id}
+            name={post.user.name}
+            email={post.user.email}
+            edited={'edited, 27 Oct 2023'} 
+            body={post.body} 
+            likes={4} 
+          />
+        ))
+      }
 
-      <Post 
-        name={'Leonardo Torrealba'}
-        email={'leonardotorre14@gmail.com'}
-        edited={'edited, 27 Oct 2023'} 
-        body={"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."} 
-        likes={4} />
     </div>
   )
 }

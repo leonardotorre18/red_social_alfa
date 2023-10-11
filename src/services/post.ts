@@ -5,6 +5,6 @@ export const getPost = (token: string) => {
     headers: {
       Authorization: token
     }
-  }).then(data => data.data)
+  }).then(data => data.data.posts)
 }
 
