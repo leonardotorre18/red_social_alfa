@@ -2,6 +2,8 @@ import React from 'react'
 import * as Yup from 'yup'
 import { Formik } from 'formik';
 import { loginUser } from '../../services/user';
+import { context } from '../../context/Context';
+import { login } from '../../context/actions/auth';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email('El email no es válido').required('Debes ingresar un email'),
@@ -9,6 +11,7 @@ const validationSchema = Yup.object().shape({
 })
 
 export default function LoginView() {
+  const { dispatch, state } = React.useContext(context)
 
   return (
     <div
@@ -26,8 +29,17 @@ export default function LoginView() {
         onSubmit={ (values, { resetForm }) => {
           
           loginUser(values)
-            .then( res => console.log(res))
+            .then( res => {
+              dispatch(login({
+                token: res.token,
+                name: res.user.name,
+                email: res.user.email
+              }))
+              console.log(state)
+
+            })
             .catch(error => console.log(error))
+
           
           resetForm()
         }}

@@ -1,6 +1,6 @@
 import React from "react"
 import { context } from "./Context"
-import { Reducer } from "./reducers"
+import { Reducer, initialState } from "./reducers"
 
 export default function ContextProvider ({
   children
@@ -8,9 +8,7 @@ export default function ContextProvider ({
   children: React.ReactElement
 }) {
 
-  const [state, dispatch] = Reducer()
-
-
+  const [state, dispatch] = React.useReducer(Reducer, initialState)
 
   return (
     <>
