@@ -1,0 +1,1 @@
+export type ACTIONS = { payload: string, type: string }

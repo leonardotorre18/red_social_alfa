@@ -11,7 +11,6 @@ export default function HomeView() {
   return (
     <div className='max-w-5xl mx-auto flex flex-col my-10 gap-4'>
 
-
       <Post 
         name={'Leonardo Torrealba'}
         email={'leonardotorre14@gmail.com'}
