@@ -1,4 +1,5 @@
 import React from 'react'
+import ContextProvider from '../context/Provider'
  
 export default function MainProvider({
   children
@@ -7,7 +8,9 @@ export default function MainProvider({
 }) {
   return (
     <>
+    <ContextProvider>
       { children }
+    </ContextProvider>
     </>
   )
 }
