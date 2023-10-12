@@ -30,12 +30,17 @@ export default function RegisterView() {
           name: '',
           email: '',
           password: '',
-          confirmPassword: ''
+          confirmPassword: '',
+          server: ''
         }}
         validationSchema={validationSchema}
-        onSubmit={(values, {resetForm}) => {
+        onSubmit={(values, { resetForm, setErrors }) => {
           
-          registerUser(values)
+          registerUser({
+            email: values.email,
+            password: values.password,
+            name: values.name
+          })
             .then(data => {
               dispatch(login({
                 token: data.token,
@@ -44,7 +49,12 @@ export default function RegisterView() {
               }))
               navigate('/')
             })
-            .catch(error => console.log(error))
+            .catch(error => {
+              console.log('hoña')
+              setErrors({
+                server: error.response.data.message
+              })
+            })
 
           resetForm()
         }}  
@@ -55,6 +65,7 @@ export default function RegisterView() {
           onSubmit={handleSubmit}
           className='flex flex-col items-center gap-4 mt-4'
         >
+          { errors.server && <p className='bg-red-700 text-whiteColor rounded-md py-1 px-4'>{ errors.server }</p> }
           <input 
             type="text" 
             placeholder='Nombre' 
@@ -64,6 +75,7 @@ export default function RegisterView() {
             onBlur={handleBlur}
             value={values.name}
           />
+          { errors.name && <p className='bg-red-700 text-whiteColor rounded-md py-1 px-4'>{ errors.name }</p> }
           <input 
             type="email" 
             placeholder='Correo' 

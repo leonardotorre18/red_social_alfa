@@ -18,7 +18,7 @@ export default function HomeView() {
         )
       })
     }
-  }, [dispatch, state.auth?.token])
+  }, [])
 
   console.log(state)
   return (

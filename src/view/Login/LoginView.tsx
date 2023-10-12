@@ -25,12 +25,16 @@ export default function LoginView() {
       <Formik
         initialValues={{
           email: '',
-          password: ''
+          password: '',
+          server: ''
         }}
         validationSchema={validationSchema}
-        onSubmit={ (values, { resetForm }) => {
+        onSubmit={ (values, { resetForm, setErrors }) => {
           
-          loginUser(values)
+          loginUser({
+            email: values.email,
+            password: values.password
+          })
             .then( res => {
               dispatch(login({
                 token: res.token,
@@ -39,7 +43,11 @@ export default function LoginView() {
               }))
               navigate("/")
             })
-            .catch(error => console.log(error))
+            .catch(error => {
+              setErrors({
+                server: error.response.data.message
+              })
+            })
 
           
           resetForm()
@@ -51,6 +59,7 @@ export default function LoginView() {
             onSubmit={handleSubmit}
             className='flex flex-col items-center gap-4 mt-4'
           >
+            { errors.server && <p className='bg-red-700 text-whiteColor rounded-md py-1 px-4'>{ errors.server }</p> }
             <input 
               type="email" 
               placeholder='Correo' 
