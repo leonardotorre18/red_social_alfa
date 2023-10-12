@@ -2,14 +2,21 @@ import React from 'react'
 import * as Yup from 'yup'
 import { Formik } from 'formik';
 import { registerUser } from '../../services/user';
+import { useNavigate } from 'react-router-dom';
+import { context } from '../../context/Context';
+import { login } from '../../context/actions/auth';
 
 const validationSchema = Yup.object().shape({
-  email: Yup.string().min(1, 'Debes ingresar un email').email('El email no es válido').required('El email es requerido'),
+  name: Yup.string().required('El nombre es requerido'),
+  email: Yup.string().email('El email no es válido').required('El email es requerido'),
   password: Yup.string().required('Debes ingresar una contraseña'),
   confirmPassword: Yup.string().oneOf([Yup.ref('password')], 'Las contraseñas no coinciden')
 })
 
 export default function RegisterView() {
+
+  const { dispatch } = React.useContext(context)
+  const navigate = useNavigate();
 
   return (
     <div
@@ -20,6 +27,7 @@ export default function RegisterView() {
 
       <Formik 
         initialValues={{
+          name: '',
           email: '',
           password: '',
           confirmPassword: ''
@@ -28,7 +36,14 @@ export default function RegisterView() {
         onSubmit={(values, {resetForm}) => {
           
           registerUser(values)
-            .then(data => console.log(data))
+            .then(data => {
+              dispatch(login({
+                token: data.token,
+                name: data.user.name,
+                email: data.user.email
+              }))
+              navigate('/')
+            })
             .catch(error => console.log(error))
 
           resetForm()
@@ -40,6 +55,15 @@ export default function RegisterView() {
           onSubmit={handleSubmit}
           className='flex flex-col items-center gap-4 mt-4'
         >
+          <input 
+            type="text" 
+            placeholder='Nombre' 
+            className='w-full border-b-2 border-thirdBlue py-2'
+            name='name'
+            onChange={handleChange}
+            onBlur={handleBlur}
+            value={values.name}
+          />
           <input 
             type="email" 
             placeholder='Correo' 

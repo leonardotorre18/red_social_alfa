@@ -2,7 +2,7 @@ import React from 'react'
 import Post from '../../components/Post'
 import { context } from '../../context/Context'
 import { TPost } from '../../context/types/posts'
-import { getPost } from '../../services/post'
+import { getPostServices } from '../../services/post'
 import { setPosts } from '../../context/actions/posts'
 
 export default function HomeView() {
@@ -12,7 +12,7 @@ export default function HomeView() {
 
   React.useEffect(() => {
     if(state.auth?.token) {
-      getPost(state.auth.token).then((data: TPost[]) => {
+      getPostServices(state.auth.token).then((data: TPost[]) => {
         dispatch(
           setPosts(data)
         )

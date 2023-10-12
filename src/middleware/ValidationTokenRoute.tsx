@@ -2,11 +2,14 @@ import React from 'react'
 import { context } from '../context/Context'
 import { Navigate } from 'react-router-dom'
 
-export default function ValidationToken({
-  children
-}: {
+type PropTypes = {
   children: React.ReactElement
-}) {
+}
+
+export default function ValidationTokenRoute({
+  children
+}: PropTypes) {
+  
   const { state } = React.useContext(context)
   
   return (

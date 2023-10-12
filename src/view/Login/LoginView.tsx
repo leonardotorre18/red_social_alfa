@@ -4,6 +4,7 @@ import { Formik } from 'formik';
 import { loginUser } from '../../services/user';
 import { context } from '../../context/Context';
 import { login } from '../../context/actions/auth';
+import { useNavigate } from 'react-router-dom';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email('El email no es válido').required('Debes ingresar un email'),
@@ -12,6 +13,7 @@ const validationSchema = Yup.object().shape({
 
 export default function LoginView() {
   const { dispatch } = React.useContext(context)
+  const navigate = useNavigate();
 
   return (
     <div
@@ -35,6 +37,7 @@ export default function LoginView() {
                 name: res.user.name,
                 email: res.user.email
               }))
+              navigate("/")
             })
             .catch(error => console.log(error))
 

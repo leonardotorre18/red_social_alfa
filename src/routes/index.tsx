@@ -6,7 +6,8 @@ import HomeView from "../view/Home/HomeView";
 import MainLayout from "../view/layout/MainLayout";
 import LoginView from "../view/Login/LoginView";
 import RegisterView from "../view/Register/RegisterView";
-import ValidationToken from "../middleware/ValidationToken";
+import ValidationTokenRoute from "../middleware/ValidationTokenRoute";
+import LogoutView from "../view/Logout/LogoutView";
 
 const router = createBrowserRouter([
   {
@@ -15,7 +16,10 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <ValidationToken><HomeView /></ValidationToken>
+        element: 
+          <ValidationTokenRoute>
+            <HomeView />
+          </ValidationTokenRoute>
       },
       {
         path: '/login',
@@ -24,6 +28,13 @@ const router = createBrowserRouter([
       {
         path: '/register',
         element: <RegisterView />
+      },
+      {
+        path: '/logout',
+        element:
+          <ValidationTokenRoute>
+            <LogoutView />
+          </ValidationTokenRoute>
       }
     ]
   },

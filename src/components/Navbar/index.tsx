@@ -2,6 +2,7 @@ import React from 'react'
 import { BsSearch } from 'react-icons/bs'
 import { BiSolidUserCircle } from 'react-icons/bi'
 import { Link } from 'react-router-dom'
+import ValidationTokenElement from '../../middleware/ValidationTokenElement'
 
 export default function Navbar() {
 
@@ -42,37 +43,32 @@ export default function Navbar() {
             }
             onClick={toggleShowMenu}
           >
-            <Link 
-              to={'/profile'}
-              className='px-4 min-w-max'
-            >
+            <Link to={'/profile'} className='px-4 min-w-max'>
               Perfil
             </Link>
-            <Link 
-              to={'/'}
-              className='px-4 min-w-max'
-            >
+            <Link to={'/'} className='px-4 min-w-max'>
               Dashboard
             </Link>
             <hr />
-            <Link 
-              to={'/login'}
-              className='px-4 min-w-max'
-            >
-              Iniciar Sesión
-            </Link>
-            <Link 
-              to={'/register'}
-              className='px-4 min-w-max'
-            >
-              Registrarse
-            </Link>
-            <Link 
-              to={'/logout'}
-              className='px-4 min-w-max'
-            >
-              Cerrar Sesión
-            </Link>
+            <ValidationTokenElement 
+              falseElement={
+                <>
+                <Link to={'/login'} className='px-4 min-w-max'>
+                  Iniciar Sesión
+                </Link>
+                <Link to={'/register'} className='px-4 min-w-max'>
+                  Registrarse
+                </Link>
+                </>
+              }
+              trueElement={
+                <>
+                <Link to={'/logout'} className='px-4 min-w-max'>
+                  Cerrar Sesión
+                </Link>
+                </>
+              }
+            />
           </div>
 
         </div>
