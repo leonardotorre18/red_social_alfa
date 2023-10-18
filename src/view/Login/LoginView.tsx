@@ -2,9 +2,9 @@ import React from 'react'
 import * as Yup from 'yup'
 import { Formik, FormikHelpers } from 'formik';
 import { loginUser } from '../../services/user';
-import { context } from '../../context/Context';
-import { login } from '../../context/actions/auth';
+import { context } from '../../context/Context'; 
 import { useNavigate } from 'react-router-dom';
+import { setToken } from '../../context/actions/token';
 
 type FormikValues = {
   email: string,
@@ -31,14 +31,7 @@ export default function LoginView() {
       password: values.password
     })
       .then( res => {
-        dispatch(login({
-          token: res.token,
-          user: {
-            _id: res.user._id,
-            name: res.user.name,
-            email: res.user.email
-          }
-        }))
+        dispatch(setToken(res.token))
         navigate("/")
       })
       .catch(error => {

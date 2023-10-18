@@ -1,3 +1,4 @@
+import { TUser } from "../context/types/user"
 import { axios } from "./config"
 
 type TLogin = {
@@ -20,9 +21,20 @@ export const registerUser = (user: TRegister) =>
     .then(res => res.data)
 
 
-export const refreshSession = (token: string) => 
+export const getSession = (token: string) => 
   axios.post('/me', {
     headers: {
       Authorization: token
     }
   }).then(res => res.data)
+
+
+export const getUserById = (id: string, token: string): Promise<{
+  token: string,
+  user: TUser
+}> => 
+  axios.get(`/users/id/${id}`, {
+    headers: {
+      Authorization: token
+    }
+  })

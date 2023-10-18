@@ -8,6 +8,7 @@ import LoginView from "../view/Login/LoginView";
 import RegisterView from "../view/Register/RegisterView";
 import ValidationTokenRoute from "../middleware/ValidationTokenRoute";
 import LogoutView from "../view/Logout/LogoutView";
+import Profile from "../view/Profile/Profile";
 
 const router = createBrowserRouter([
   {
@@ -19,6 +20,20 @@ const router = createBrowserRouter([
         element: 
           <ValidationTokenRoute>
             <HomeView />
+          </ValidationTokenRoute>
+      },
+      {
+        path: '/profile/:user_id',
+        element: 
+          <ValidationTokenRoute>
+            <Profile />
+          </ValidationTokenRoute>
+      },
+      {
+        path: '/profile',
+        element: 
+          <ValidationTokenRoute>
+            <Profile />
           </ValidationTokenRoute>
       },
       {

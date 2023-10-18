@@ -11,8 +11,8 @@ export default function HomeView() {
 
 
   React.useEffect(() => {
-    if(state.auth?.token) {
-      getPostServices(state.auth.token).then((data: TPost[]) => {
+    if(state.token) {
+      getPostServices(state.token).then((data: TPost[]) => {
         dispatch(
           setPosts(data)
         )

@@ -16,7 +16,7 @@ export default function ValidationTokenElement({
   return (
     <>
     {
-      state.auth?.token ? 
+      state.token ? 
         trueElement :
         falseElement
     }

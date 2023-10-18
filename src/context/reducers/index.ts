@@ -3,20 +3,16 @@ import { ACTIONS } from "../actions"
 import { TPost } from "../types/post"
 import { PostsReducer } from "./posts"
 import { ENUM_POST } from "../actions/posts"
-import { ENUM_AUTH } from "../actions/auth"
-import { AuthReducer } from "./auth"
-import { TAuth } from "../types/auth"
+import { ENUM_TOKEN } from "../actions/token"
+import { TokenReducer } from "./token"
 
 export type State = {
   posts: TPost[],
-  auth: TAuth
+  token: string | undefined
 }
 export const initialState: State = {
   posts: [],
-  auth: {
-    user: undefined,
-    token: undefined,
-  }
+  token: undefined
 }
 
 export const Reducer = (state: State, actions: ACTIONS): State => {
@@ -27,10 +23,10 @@ export const Reducer = (state: State, actions: ACTIONS): State => {
       posts: PostsReducer(state.posts, actions)
     }
   } else 
-  if (actions.type in ENUM_AUTH) {
+  if (actions.type in ENUM_TOKEN) {
     return {
       ...state,
-      auth: AuthReducer(state.auth, actions)
+      token: TokenReducer(state.token, actions)
     }
 
   }

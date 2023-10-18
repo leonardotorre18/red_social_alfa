@@ -4,7 +4,7 @@ import { Formik, FormikHelpers } from 'formik';
 import { registerUser } from '../../services/user';
 import { useNavigate } from 'react-router-dom';
 import { context } from '../../context/Context';
-import { login } from '../../context/actions/auth';
+import { setToken } from '../../context/actions/token';
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required('El nombre es requerido'),
@@ -37,14 +37,7 @@ export default function RegisterView() {
       name: values.name
     })
       .then(user => {
-        dispatch(login({
-          token: user.token,
-          user: {
-            _id: user.user._id,
-            name: user.user.name,
-            email: user.user.email
-          }
-        }))
+        dispatch(setToken(user.token))
         navigate('/')
       })
       .catch(error => {

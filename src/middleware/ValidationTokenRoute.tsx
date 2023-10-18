@@ -15,7 +15,7 @@ export default function ValidationTokenRoute({
   return (
     <>
       {
-        state.auth.token ?
+        state.token ?
           children :
           <Navigate to={'/login'} />
       }
