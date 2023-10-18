@@ -1,5 +1,6 @@
+import { TUser } from "./user"
+
 export type TAuth = {
-  token: string,
-  name: string,
-  email: string
+  token?: string,
+  user?: TUser
 }

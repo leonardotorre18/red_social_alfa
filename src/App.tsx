@@ -3,6 +3,7 @@ import MainProvider from './providers/MainProvider'
 import { Routes } from './routes'
 
 function App() {
+
   return (
     <MainProvider>
       <Routes />

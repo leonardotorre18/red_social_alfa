@@ -1,10 +1,16 @@
 import React from 'react'
 import * as Yup from 'yup'
-import { Formik } from 'formik';
+import { Formik, FormikHelpers } from 'formik';
 import { loginUser } from '../../services/user';
 import { context } from '../../context/Context';
 import { login } from '../../context/actions/auth';
 import { useNavigate } from 'react-router-dom';
+
+type FormikValues = {
+  email: string,
+  password: string,
+  server: string
+}
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().email('El email no es válido').required('Debes ingresar un email'),
@@ -14,6 +20,34 @@ const validationSchema = Yup.object().shape({
 export default function LoginView() {
   const { dispatch } = React.useContext(context)
   const navigate = useNavigate();
+
+  const handleSubmit = async (
+    values: FormikValues,
+    { setErrors, resetForm }: FormikHelpers<FormikValues>
+  ) => {
+
+    loginUser({
+      email: values.email,
+      password: values.password
+    })
+      .then( res => {
+        dispatch(login({
+          token: res.token,
+          user: {
+            _id: res.user._id,
+            name: res.user.name,
+            email: res.user.email
+          }
+        }))
+        navigate("/")
+      })
+      .catch(error => {
+        setErrors({
+          server: error.response.data.message
+        })
+      })
+    resetForm()
+  }
 
   return (
     <div
@@ -29,29 +63,7 @@ export default function LoginView() {
           server: ''
         }}
         validationSchema={validationSchema}
-        onSubmit={ (values, { resetForm, setErrors }) => {
-          
-          loginUser({
-            email: values.email,
-            password: values.password
-          })
-            .then( res => {
-              dispatch(login({
-                token: res.token,
-                name: res.user.name,
-                email: res.user.email
-              }))
-              navigate("/")
-            })
-            .catch(error => {
-              setErrors({
-                server: error.response.data.message
-              })
-            })
-
-          
-          resetForm()
-        }}
+        onSubmit={handleSubmit}
       >
         {({ values, errors, handleSubmit, handleChange, handleBlur}) => 
 

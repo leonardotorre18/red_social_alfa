@@ -1,6 +1,6 @@
 import { ACTIONS } from "../actions"
 import { ENUM_POST } from "../actions/posts"
-import { TPost } from "../types/posts"
+import { TPost } from "../types/post"
 
 
 export const PostsReducer = ( state: TPost[], actions: ACTIONS ): TPost[]  => {

@@ -1,6 +1,6 @@
 import React from 'react'
 import * as Yup from 'yup'
-import { Formik } from 'formik';
+import { Formik, FormikHelpers } from 'formik';
 import { registerUser } from '../../services/user';
 import { useNavigate } from 'react-router-dom';
 import { context } from '../../context/Context';
@@ -13,10 +13,48 @@ const validationSchema = Yup.object().shape({
   confirmPassword: Yup.string().oneOf([Yup.ref('password')], 'Las contraseñas no coinciden')
 })
 
+type FormikValues = {
+  email: string,
+  password: string,
+  confirmPassword: string,
+  name: string,
+  server: string
+}
+
 export default function RegisterView() {
 
   const { dispatch } = React.useContext(context)
   const navigate = useNavigate();
+
+  const handleSubmit = (
+    values: FormikValues, 
+    { resetForm, setErrors }: FormikHelpers<FormikValues>
+  ) => {
+          
+    registerUser({
+      email: values.email,
+      password: values.password,
+      name: values.name
+    })
+      .then(user => {
+        dispatch(login({
+          token: user.token,
+          user: {
+            _id: user.user._id,
+            name: user.user.name,
+            email: user.user.email
+          }
+        }))
+        navigate('/')
+      })
+      .catch(error => {
+        setErrors({
+          server: error.response.data.message
+        })
+      })
+
+    resetForm()
+  }
 
   return (
     <div
@@ -34,30 +72,7 @@ export default function RegisterView() {
           server: ''
         }}
         validationSchema={validationSchema}
-        onSubmit={(values, { resetForm, setErrors }) => {
-          
-          registerUser({
-            email: values.email,
-            password: values.password,
-            name: values.name
-          })
-            .then(data => {
-              dispatch(login({
-                token: data.token,
-                name: data.user.name,
-                email: data.user.email
-              }))
-              navigate('/')
-            })
-            .catch(error => {
-              console.log('hoña')
-              setErrors({
-                server: error.response.data.message
-              })
-            })
-
-          resetForm()
-        }}  
+        onSubmit={handleSubmit}  
       >
         { ({ values, errors, handleChange, handleSubmit, handleBlur }) => 
         

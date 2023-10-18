@@ -1,7 +1,7 @@
 import React from 'react'
 import Post from '../../components/Post'
 import { context } from '../../context/Context'
-import { TPost } from '../../context/types/posts'
+import { TPost } from '../../context/types/post'
 import { getPostServices } from '../../services/post'
 import { setPosts } from '../../context/actions/posts'
 

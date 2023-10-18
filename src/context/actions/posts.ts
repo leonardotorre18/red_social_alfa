@@ -1,4 +1,4 @@
-import { TPost } from "../types/posts";
+import { TPost } from "../types/post";
 
 export type ACTIONS_POST =
   TSetPost

@@ -1,6 +1,6 @@
 // import React from "react"
 import { ACTIONS } from "../actions"
-import { TPost } from "../types/posts"
+import { TPost } from "../types/post"
 import { PostsReducer } from "./posts"
 import { ENUM_POST } from "../actions/posts"
 import { ENUM_AUTH } from "../actions/auth"
@@ -9,11 +9,14 @@ import { TAuth } from "../types/auth"
 
 export type State = {
   posts: TPost[],
-  auth: TAuth | undefined
+  auth: TAuth
 }
-export const initialState = {
+export const initialState: State = {
   posts: [],
-  auth: undefined
+  auth: {
+    user: undefined,
+    token: undefined,
+  }
 }
 
 export const Reducer = (state: State, actions: ACTIONS): State => {
@@ -31,5 +34,6 @@ export const Reducer = (state: State, actions: ACTIONS): State => {
     }
 
   }
+  console.log(state)
   return state
 }
