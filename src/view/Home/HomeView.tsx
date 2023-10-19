@@ -18,7 +18,7 @@ export default function HomeView() {
         )
       })
     }
-  }, [])
+  }, [state.token])
 
   console.log(state)
   return (
