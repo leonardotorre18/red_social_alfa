@@ -4,7 +4,7 @@ import { Formik, FormikHelpers } from 'formik';
 import { loginUser } from '../../services/user';
 import { context } from '../../context/Context'; 
 import { useNavigate } from 'react-router-dom';
-import { setToken } from '../../context/actions/token';
+import { setAuth } from '../../context/actions/auth';
 
 type FormikValues = {
   email: string,
@@ -31,7 +31,7 @@ export default function LoginView() {
       password: values.password
     })
       .then( res => {
-        dispatch(setToken(res.token))
+        dispatch(setAuth(res.token, res.user._id))
         navigate("/")
       })
       .catch(error => {

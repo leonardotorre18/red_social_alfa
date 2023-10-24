@@ -1,14 +1,13 @@
 import React from 'react'
 import { context } from '../../context/Context'
-import { clearToken } from '../../context/actions/token';
+import { clearAuth } from '../../context/actions/auth';
 
 export default function LogoutView() {
 
   const { dispatch } = React.useContext(context);
 
   React.useEffect( () => {
-    dispatch(clearToken())
-    
+    dispatch(clearAuth())
   }, [])
 
   return (

@@ -15,15 +15,16 @@ export default function Profile() {
 
   React.useEffect(() => {
 
-    if (user_id && state.token) {
-      getUserById(user_id, state.token)
+    if (user_id && state.auth.token) {
+      getUserById(user_id, state.auth.token)
         .then((res) => {
           setUser(res.user)
         })
     } 
-    else if (state.token) {
-      getSession(state.token)
+    else if (state.auth.token) {
+      getSession(state.auth.token)
         .then(res => {
+          console.log(res)
           setUser({
             _id: res._id,
             name: res.name,
@@ -31,7 +32,7 @@ export default function Profile() {
           })
         })
     }
-  }, [user_id, state.token])
+  }, [user_id, state.auth.token])
 
 
   return (

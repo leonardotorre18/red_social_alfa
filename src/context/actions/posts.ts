@@ -1,10 +1,11 @@
 import { TPost } from "../types/post";
 
 export type ACTIONS_POST =
-  TSetPost
+  TSetPost 
 
 export enum ENUM_POST {
-  SET_POSTS = 'SET_POSTS'
+  SET_POSTS = 'SET_POSTS',
+  LOAD_POST = 'LOAD_POSTS'
 }
 
 export type TSetPost = {

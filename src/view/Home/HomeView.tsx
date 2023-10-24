@@ -4,6 +4,7 @@ import { context } from '../../context/Context'
 import { TPost } from '../../context/types/post'
 import { getPostServices } from '../../services/post'
 import { setPosts } from '../../context/actions/posts'
+import PostForm from '../../components/PostForm/PostForm'
 
 export default function HomeView() {
 
@@ -11,18 +12,20 @@ export default function HomeView() {
 
 
   React.useEffect(() => {
-    if(state.token) {
-      getPostServices(state.token).then((data: TPost[]) => {
+    if(state.auth.token) {
+      getPostServices(state.auth.token).then((data: TPost[]) => {
         dispatch(
           setPosts(data)
         )
       })
     }
-  }, [state.token])
+  }, [state.auth.token, dispatch])
 
   console.log(state)
   return (
     <div className='max-w-5xl mx-auto flex flex-col my-10 gap-4'>
+
+      <PostForm />
       
       {
         state.posts.map( post => (
