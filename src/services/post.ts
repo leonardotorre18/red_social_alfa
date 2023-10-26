@@ -1,6 +1,7 @@
+import { TPost } from "../context/types/post"
 import { axios } from "./config"
 
-export const getPostServices = (token: string) => 
+export const getPostServices = (token: string): Promise<TPost[]> => 
   axios.get('/post', {
     headers: {
       Authorization: token
@@ -23,3 +24,15 @@ export const addPost = (
       Authorization: token
     }
   })  
+
+
+export const deletePostService = ( id: string, token: string) => 
+  axios.delete('/post/delete', {
+    data: {
+      id, 
+      token
+    },
+    headers: {
+      Authorization: token
+    },
+  }, )

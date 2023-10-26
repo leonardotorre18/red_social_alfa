@@ -29,13 +29,12 @@ export default function HomeView() {
       
       {
         state.posts.map( post => (
-          <Post 
-            key={post._id}
+          <Post
+            id={post._id}
+            user_id={post.user._id}
             name={post.user.name}
             email={post.user.email}
-            edited={'edited, 27 Oct 2023'} 
-            body={post.body} 
-            likes={4} 
+            body={post.body}
           />
         ))
       }

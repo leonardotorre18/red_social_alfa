@@ -37,7 +37,7 @@ export default function RegisterView() {
       name: values.name
     })
       .then(user => {
-        dispatch(setAuth(user.token, user._id))
+        dispatch(setAuth(user.token, user.user._id))
         navigate('/')
       })
       .catch(error => {

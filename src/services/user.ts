@@ -36,4 +36,4 @@ export const getUserById = (id: string, token: string): Promise<{
     headers: {
       Authorization: token
     }
-  })
+  }).then(res => res.data)
